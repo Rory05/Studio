@@ -14,7 +14,7 @@ namespace Studio.Models
         }
         public string Name { get; set; }
         public float Duration { get; set; }
-        public DateTime Year { get; set; }
+        public int Year { get; set; }
         public int Age { get; set; }
         public int Id { get; set; }
         public int CountryId { get; set; }
