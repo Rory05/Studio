@@ -1,0 +1,10 @@
+﻿body {
+    margin-bottom: 60px;
+    background-attachment: fixed;
+    background-color: rgb(212, 237, 255);
+}
+.header {
+    background-size: auto;
+    background-color: rgb(15, 59, 112);
+    text-decoration-color:antiquewhite;
+}

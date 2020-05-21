@@ -22,21 +22,26 @@ namespace Studio.Controllers
 
         // GET: api/Films
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Films>>> GetFilms()
+        public async Task<ActionResult<IEnumerable<Films>>> GetFilms(string genreName)
         {
-            return await _context.Films.ToListAsync();
+            var films = _context.Films;
+            if(genreName != null)
+            {
+                var filmgenres = _context.FilmGenres.Where(b => b.Genres.Name == genreName).FirstOrDefault();
+                var film = _context.Films.Where(b => b.Id == filmgenres.FilmsId);
+                return await films.ToListAsync();
+            }
+
+            return await films.ToListAsync();
         }
 
         // GET: api/Films/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Films>> GetFilms(int id)
         {
-            var films = await _context.Films.FindAsync(id);
 
-            if (films == null)
-            {
-                return NotFound();
-            }
+            var filmgenres = await _context.FilmGenres.Where(b => b.GenresId == id).FirstOrDefaultAsync();
+            var films = await _context.Films.Where(b => b.Id == filmgenres.FilmsId).FirstAsync();
 
             return films;
         }
@@ -104,6 +109,16 @@ namespace Studio.Controllers
         private bool FilmsExists(int id)
         {
             return _context.Films.Any(e => e.Id == id);
+        }
+
+        [HttpOptions("{id}")]
+        public async Task<ActionResult<Films>> OptionsFilms(int id)
+        {
+            
+            var filmgenres = await _context.FilmGenres.Where(b => b.GenresId == id).FirstOrDefaultAsync();
+            var films = await _context.Films.Where(b => b.Id == filmgenres.FilmsId).FirstAsync();
+
+            return films;
         }
     }
 }
