@@ -22,8 +22,16 @@ namespace Studio.Controllers
 
         // GET: api/Actors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Actors>>> GetActors()
+        public async Task<ActionResult<IEnumerable<Actors>>> GetActors(string actorName)
         {
+            if(actorName != null)
+            {
+                string sql = "select Actors.* " +
+                                "from Actors " +
+                                "where Actors.Name = '" + actorName + "'";
+                var actor = _context.Actors.FromSqlRaw(sql);
+                return await actor.ToListAsync();
+            }
             return await _context.Actors.ToListAsync();
         }
 

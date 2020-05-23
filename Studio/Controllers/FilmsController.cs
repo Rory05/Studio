@@ -22,14 +22,26 @@ namespace Studio.Controllers
 
         // GET: api/Films
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Films>>> GetFilms(string genreName)
+        public async Task<ActionResult<IEnumerable<Films>>> GetFilms(string genreName, string actorName)
         {
             var films = _context.Films;
             if(genreName != null)
             {
-                var filmgenres = _context.FilmGenres.Where(b => b.Genres.Name == genreName).FirstOrDefault();
-                var film = _context.Films.Where(b => b.Id == filmgenres.FilmsId);
-                return await films.ToListAsync();
+                string sql = "select Films.* " +
+                                "from Films inner join (FilmGenres inner join Genres on Genres.Id = FilmGenres.GenresId) on Films.Id = FilmGenres.FilmsId " +
+                                "where Genres.Name = '" + genreName + "'";
+                var film = _context.Films.FromSqlRaw(sql);
+                return await film.ToListAsync();
+            } else
+            {
+                if (actorName != null)
+                {
+                    string sql = "select Films.* " +
+                                "from Films inner join (FilmActors inner join Actors on Actors.Id = FilmActors.ActorsId) on Films.Id = FilmActors.FilmsId " +
+                                "where Actors.Name = '" + actorName + "'";
+                    var film = _context.Films.FromSqlRaw(sql);
+                    return await film.ToListAsync();
+                }
             }
 
             return await films.ToListAsync();

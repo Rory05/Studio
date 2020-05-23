@@ -1,0 +1,54 @@
+﻿body {
+    margin-bottom: 60px;
+    background-attachment: fixed;
+    background-color: rgb(212, 237, 255);
+}
+
+.header {
+    background-size: auto;
+    background-color: rgb(15, 59, 112);
+    text-decoration-color: antiquewhite;
+}
+
+.name {
+    font-size: 27px;
+    color: black;
+    margin-left: 20px;
+    font-family:'Segoe Print';
+}
+.alltext {
+    font-size: 20px;
+    color: black;
+    margin-left: 30px;
+    font-family: 'Segoe Print';
+}
+.divform {
+    border-style: double;
+    border-width: 12px;
+    border-color: black;
+    background-color: rgba(255, 248, 213, 0.75);
+    margin-top: 30px;
+    border-radius: 15px;
+}
+.mynav {
+    border-style: double;
+    border-width: 12px;
+    border-color: black;
+    border-top: none;
+    background-color: rgba(255, 248, 213, 0.75);
+    height: 65px;
+}
+.cinema {
+    background-color: rgba(255, 255, 255, 0);
+    border:none;
+    font-size:40px;
+    font-family:Forte;
+    margin-left: 80px;
+}
+.img {
+    border-radius: 5px;
+    margin-left: 15px;
+    width: 300px;
+}
+
+

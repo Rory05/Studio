@@ -12,9 +12,10 @@ namespace Studio.Models
             FilmActors = new List<FilmActors>();
         }
         public string Name { get; set; }
-        public DateTime Date { get; set; }
+        public int Date { get; set; }
         public int FilmNumber { get; set; }
         public string FirstFilm { get; set; }
+        public string Img { get; set; }
         public int Id { get; set; }
         public virtual ICollection<FilmActors> FilmActors { get; set; }
     }

@@ -8,56 +8,48 @@
     <link rel="stylesheet" href="css/site.css" />
     <link rel="stylesheet" href="/boots/css/bootstrap.css"/>
 </head>
-<body>
+<body style="background-color:rgb(30, 30, 30)">
     <header>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <!-- Brand -->
-            <a class="navbar-brand" href="#">Logo</a>
+        <nav class="navbar navbar-expand-sm navbar-fixed-top mynav">
 
-            <!-- Links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" onclick="getFilms(1)">Link 1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link 2</a>
-                </li>
-            </ul>
-            <div>
-                <select id="selectgenre" onchange="getFilmGenres()" ></select>
+            <button class="cinema" onclick="getFilms(); clearActor()"> YourHomeCinema </button>
+            <div style="margin-left:50px">
+                <select class="custom-select alltext" style="background-color: rgb(30,30,30); color:rgb(255, 248, 213)" id="selectgenre" onchange="getFilmGenres(); clearActor()">
+                    <option>Выберите жанр</option>
+                </select>
+            </div>
+            <div style="margin-left:30px">
+                <select class="custom-select alltext" style="background-color: rgb(30,30,30); color:rgb(255, 248, 213)" id="selectactor" onchange="getFilmActors()">
+                    <option>Выберите актёра</option>
+                </select>
+
             </div>
         </nav>
     </header>
-    <div>
-        <h3>Add Genre</h3>
-        <form action="javascript:void(0);" method="POST" onsubmit="addGenre()">
-            <input type="text" id="add-name" placeholder="New Genre">
-            <input type="submit" value="Add">
-        </form>
-
-        <div id="editGenre">
-            <h3>Edit</h3>
-            <form action="javascript:void(0);" onsubmit="updateGenre()">
-                <input type="hidden" id="edit-id">
-                <input type="text" id="edit-name">
-                <input type="submit" value="Save">
-                <a onclick="closeInput()" aria-label="Close">&#10006;</a>
-            </form>
+    <div class="container">
+        <!--<p id="counter"></p>-->
+        <div>
+            <dl>
+                <dd id="actor" style="margin-left:50px"> </dd>
+            </dl>
+        </div>  
+        <div>
+            <dl>
+                <dd id="films"  style="margin-left:50px; display:flex; flex-direction:row; flex-wrap:wrap;"> </dd>
+            </dl>
         </div>
-
-        <p id="counter"></p>
-
-        <table>
+        <!--<table>
             <tr>
                 <th>Name</th>
             </tr>
             <tbody id="films"></tbody>
-        </table>
+        </table>-->
     </div>
 
     <script src="js/lab2.js" asp-append-version="true"></script>
     <script type="text/javascript">
         getGenres();
+        getActors();
         getFilms();
     </script>
 </body>

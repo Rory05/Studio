@@ -22,15 +22,43 @@ namespace Studio.Controllers
 
         // GET: api/Genres
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Genres>>> GetGenres()
+        public async Task<ActionResult<IEnumerable<Genres>>> GetGenres(int id, string shoto)
         {
-            return await _context.Genres.ToListAsync();
+            var genres = _context.Genres;
+            if (id != 0)
+            {
+                string sql = "select Genres.* " +
+                            "from Genres inner join (FilmGenres inner join Films on Films.Id = FilmGenres.FilmsId) on Films.Id = FilmGenres.FilmsId " +
+                            "where Films.Id = '" + id + "'";
+                var genre = _context.Genres.FromSqlRaw(sql);
+                return await genre.ToListAsync();
+            }
+            return await genres.ToListAsync();
         }
 
         // GET: api/Genres/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Genres>> GetGenres(int id)
         {
+            //var fg = _context.FilmGenres.Where(b => b.FilmsId == id).FirstOrDefaultAsync();
+            //var g = genres.Where(b=> b.Id == fg.)
+
+
+
+            //var filmgenre = from fg in _context.FilmGenres
+            //                where fg.FilmsId == id
+            //                select fg;
+            //List<Genres> genres = new List<Genres>();
+            //foreach (var fg in filmgenre)
+            //{
+            //    var gen = from g in _context.Genres
+            //              where g.Id == fg.GenresId
+            //              select g;
+            //    foreach (var gn in gen)
+            //    { genres.Add(gn); }
+            
+
+
             var genres = await _context.Genres.FindAsync(id);
 
             if (genres == null)

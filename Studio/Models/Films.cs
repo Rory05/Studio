@@ -16,6 +16,8 @@ namespace Studio.Models
         public float Duration { get; set; }
         public int Year { get; set; }
         public int Age { get; set; }
+        public string Description { get; set; }
+        public string Img { get; set; }
         public int Id { get; set; }
         public int CountryId { get; set; }
         public virtual Countries Country { get; set; }
