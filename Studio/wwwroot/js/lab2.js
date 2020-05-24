@@ -59,9 +59,9 @@ function _displayActor(data) {
 
         tBody.innerHTML += `<div class="divform1"><dl><dt class="name">${actor.name}</dt>
                       <img src="img/${actor.img}" class="img1" >
-                      <a class="alltext">Date:   ${actor.date}</a><br/>
-                      <a class="alltext">Films:   ${actor.filmNumber}</a><br/>
-                      <a class="alltext">First:   ${actor.firstFilm}</a><dl></div>`;
+                      <a class="alltext">Возраст:   ${2020- actor.date} лет</a><br/>
+                      <a class="alltext">Количество фильмов с участием:   ${actor.filmNumber}</a><br/>
+                      <a class="alltext">Первый фильм:   ${actor.firstFilm}</a><dl></div>`;
 
 
     });
@@ -92,33 +92,37 @@ function _displayFilms(data) {
     tBody.innerHTML = '';
     data.forEach(film => {
         
-        tBody.innerHTML += `<div class="divform"><dl><dt class="name">${film.name}</dt>
-                      <img src="img/${film.img}" class="img" >
-                      <div><a class="alltext">Duration:   ${film.duration}</a><br/>
-                      <a class="alltext" id"selectgenre">Genre:   </a><br/>
-                      <a class="alltext">Year:   ${film.year}</a><br/>
-                      <a class="alltext">Age:   ${film.age}+</a><br/>
-                      <a class="alltext">Desription:   ${film.description}</a></div><dl></div>`;
+        var text = `<div class="divform"><dl><dt class="name">${film.name}</dt>
+                    <img src="img/${film.img}" class="img" >
+                    <div><a class="alltext">Длительность:   ${film.duration}</a><br/>
+                    <a class="alltext">Жанр(ы):   `;
+
+        film.genres.forEach(genre => {
+            text += genre + ', ';
+        });
+        text = text.slice(0, -2);
+        text += '</a><br/>';
+        text += '<a class="alltext">Акртёр(ы):   ';
+        film.actors.forEach(actor => {
+            text += actor + ', ';
+        });
+        text = text.slice(0, -2);
+
+        text += `</a><br/>
+                  <a class="alltext">Год премьеры:   ${film.year}</a><br/>
+                  <a class="alltext">Возраст:   ${film.age}+</a>            </div><dl></div>`;
+        tBody.innerHTML += text;
 
         
     });
     films = data;
 }
+
 function clearActor() {
     const tBody1 = document.getElementById('actor');
     tBody1.innerHTML = '';
 }
 
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//function getFilmGen(id) {
-//    //var id = document.getElementById('selectgenre').value;
-//    fetch(uriFG + `?filmsid=${id}`)
-//        .then(response => response.json())
-//        .then(genresid => getGenresForFilms(genresid))
-//        .catch(error => console.error('Unable to get genres.', error));
-//}
 function getGenresForFilms() {
     var id = document.getElementById('selectgenre').value;
     fetch(uriG + `?id=${id}&shoto=darova`)
@@ -135,4 +139,24 @@ function _displayGenresForFilms(data) {
     a += `</br>`;
 
     genres = data;
+}
+
+
+//Get the button:
+mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () { scrollFunction() };
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+    } else {
+        mybutton.style.display = "none";
+    }
+}
+
+function topFunction() {
+    document.documentElement.style.transition = 7;
+    document.documentElement.scrollTop = 0; 
 }
